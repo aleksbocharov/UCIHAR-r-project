@@ -17,6 +17,7 @@ Uses descriptive activity names to name the activities in the data set
 Appropriately labels the data set with descriptive variable names.
 From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 ## Script Description
+
 ### Preliminary Steps
 Starts with loading libraries required for certain operation. Namely data.table and dplyr.
 Then the dataset in zip file is unzipped. Following this we get the files path and store it in a varibles so we access the files required for future the next steps.
@@ -27,12 +28,16 @@ We read test and train data for:
 -features(X)
 -subject identifiers
 Now that data is loaded we can start processing it.
-### Step 1.
+
+### Step 1
 First step: we merge the training and the test sets to create one data set. For this we first bind rows of training and test data. Then we give names for columns and combine all columns in one dataset name the columns(note that from feature names we take second column since it's the one that contains names). Then the script binds features, activities and subject data by columns in one dataset.
+
 ### Step 2
 Now that data is combined in one set we can get to next step, which is extracting only the measurements on the mean and standard deviation for each measurement. We use regular expression to find columns with names containing std and mean. Then the script subsets data with selected columns but first adds activities and subject columns, so they are included in our exctracted data set.
+
 ### Step 3
 Now we uses descriptive activity names to name the activities in the data set. In order to do this we first change activity field to numeric and then get activity names from variable activityLabels with metadata on activities by looping through all 6 different activity names. After completing this the script factorizes variable Activity.
+
 ### Step 4
 Now we appropriately label the data set with descriptive variable names. For this we use gsub function which lets ass substituted one string with a different one. We substitute:
 - prefix 't' with time,
@@ -42,6 +47,7 @@ Now we appropriately label the data set with descriptive variable names. For thi
 - "Mag" with "Magnitude", 
 - "BodyBody" with "Body".
 Then script runs a line which displays the names so the user can check if names are set appropriately.
+
 ### Step 5
 Finally from the data set in step 4 we create a second independent tidy data set with the average of each variable for each activity and each subject. We use aggregate function from dplyr package to collapse data by variables Subject and Activity and defined function mean.
 Then before storing data we order it by subject and activity. Finally we write the tidy data on disk in a text file named tidy_UCIHAR. This completed the script.
